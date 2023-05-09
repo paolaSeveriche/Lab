@@ -1,0 +1,25 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<PageTitle>Index</PageTitle>
+
+<AuthorizeView Roles="Admin">
+    
+    <Authorized>
+        <p>Estas autenticado @context.User.Identity?.Name</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>No estas autorizado</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+<h1>Hello, C#!</h1>
+
+<h4>By Developer's:</h4>
+
+Luis Fernando Arango Gomez
+<br />
+Paola Severiche  Pestana
+
+<SurveyPrompt Title="" />
