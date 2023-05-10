@@ -110,7 +110,7 @@ namespace Lab.API.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Physicochemilcal");
+                    b.ToTable("Physicochemical");
                 });
 
             modelBuilder.Entity("Lab.Shared.Entities.State", b =>

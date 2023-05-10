@@ -26,9 +26,9 @@ namespace Lab.API.Data
             //check->controlar
             await _context.Database.EnsureCreatedAsync();
             //await CheckCountriesAsync();
-            await CheckRolesAsync();
-            await CheckUserAsync("1", "OAP", "OAP", "oap@yopmail.com",
-                "300445555", "CR 78 9687", UserType.Admin);
+            //await CheckRolesAsync();
+            //await CheckUserAsync("1", "OAP", "OAP", "oap@yopmail.com",
+            //    "300445555", "CR 78 9687", UserType.Admin);
 
         }
 

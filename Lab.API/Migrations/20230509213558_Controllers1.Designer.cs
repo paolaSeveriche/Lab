@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230509172230_Muestras")]
-    partial class Muestras
+    [Migration("20230509213558_Controllers1")]
+    partial class Controllers1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,7 +113,7 @@ namespace Lab.API.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Physicochemilcal");
+                    b.ToTable("Physicochemical");
                 });
 
             modelBuilder.Entity("Lab.Shared.Entities.State", b =>

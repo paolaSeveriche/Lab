@@ -1,0 +1,37 @@
+﻿@page "/physicochemicals/create"
+@using CurrieTechnologies.Razor.SweetAlert2;
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+<h3>Crear nuevos datos</h3>
+
+<PhysicochemicalForm @ref="physicochemicalForm" Physicochemical="physicochemical" OnValidSubmit="Create"
+             ReturnAction="Return" />
+
+@code {
+    private Physicochemical physicochemical = new();
+    private PhysicochemicalForm? physicochemicalForm;
+
+    private async Task Create()
+    {
+        // llama al repositorio y ejecuta el api
+        var httpResponse = await repository.Post("/api/physicochemicals", physicochemical);
+        if (httpResponse.Error)
+        {
+            var mensajeError = await httpResponse.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            physicochemicalForm!.FormPostedSuccessfully = true;
+
+
+            navigationManager.NavigateTo("/physicochemicals");
+        }
+    } // se devuelve a la navegación
+    private void Return()
+    {
+        navigationManager.NavigateTo("/physicochemicals");
+    }
+}

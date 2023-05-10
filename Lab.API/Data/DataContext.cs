@@ -18,7 +18,7 @@ namespace Lab.API.Data
         public DbSet<State> States { get; set; }
 
         //uestras
-        public DbSet<Physicochemical> Physicochemilcal { get; set; }
+        public DbSet<Physicochemical> Physicochemical { get; set; }
 
         //Migración
         protected override void OnModelCreating(ModelBuilder modelBuilder)

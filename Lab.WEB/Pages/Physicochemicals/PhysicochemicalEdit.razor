@@ -1,0 +1,67 @@
+﻿@page "/physicochemicals/edit/{Id:int}"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
+
+<h3>Editar País</h3>
+
+@if (physicochemical is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <PhysicochemicalForm @ref="physicochemicalForm" Physicochemical="physicochemical"
+        OnValidSubmit="Edit" ReturnAction="Return" />
+}
+
+@code {
+    private Physicochemical? physicochemical ;
+    private PhysicochemicalForm? physicochemicalForm;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var responseHTTP = await repository.Get<Physicochemical>($"api/physicochemicals/{Id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("physicochemicals");
+            }
+            else
+            {
+                var messageError = await responseHTTP.GetErrorMessageAsync();
+                await swal.FireAsync("Error", messageError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            physicochemical = responseHTTP.Response;
+        }
+    }
+
+    private async Task Edit()
+    {
+        var responseHTTP = await repository.Put("api/physicochemicals", physicochemical);
+
+        if (responseHTTP.Error)
+        {
+            var mensajeError = await responseHTTP.GetErrorMessageAsync();
+            await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            physicochemicalForm!.FormPostedSuccessfully = true;
+            navigationManager.NavigateTo("physicochemicals");
+        }
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("physicochemicals");
+    }
+}

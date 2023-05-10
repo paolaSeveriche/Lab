@@ -16,14 +16,20 @@
         </div>
 
 
-        <div class="nav-item px-3">
+        @*<div class="nav-item px-3">
             <NavLink class="nav-link" href="countries">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Countries
             </NavLink>
+        </div>*@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="physicochemicals">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> D.Fisicoquimicas
+            </NavLink>
         </div>
+
         <!-- pedir autorización PARA ESTO ES LA ETIQUETA AUTHORIZEVIEW A ESE MENÚ SOLO ACCEDE ADMIN-->
         <!--Sí quiero poner restricciones en el menú agrego esta etiqueta-->
-        <AuthorizeView Roles="Admin">
+        @*<AuthorizeView Roles="Admin">
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="countries">
@@ -31,7 +37,7 @@
                     </NavLink>
                 </div>
             </Authorized>
-        </AuthorizeView>
+        </AuthorizeView>*@
     </nav>
 </div>
 

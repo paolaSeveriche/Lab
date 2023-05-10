@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lab.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Muestras : Migration
+    public partial class Controllers1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,7 +39,7 @@ namespace Lab.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Physicochemilcal",
+                name: "Physicochemical",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -53,7 +53,7 @@ namespace Lab.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Physicochemilcal", x => x.Id);
+                    table.PrimaryKey("PK_Physicochemical", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -297,8 +297,8 @@ namespace Lab.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Physicochemilcal_Id",
-                table: "Physicochemilcal",
+                name: "IX_Physicochemical_Id",
+                table: "Physicochemical",
                 column: "Id",
                 unique: true);
 
@@ -328,7 +328,7 @@ namespace Lab.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Physicochemilcal");
+                name: "Physicochemical");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
