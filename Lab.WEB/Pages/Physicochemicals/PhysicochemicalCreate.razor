@@ -7,7 +7,7 @@
 <h3>Crear nuevos datos</h3>
 
 <PhysicochemicalForm @ref="physicochemicalForm" Physicochemical="physicochemical" OnValidSubmit="Create"
-             ReturnAction="Return" />
+                     ReturnAction="Return" />
 
 @code {
     private Physicochemical physicochemical = new();
@@ -33,5 +33,4 @@
     private void Return()
     {
         navigationManager.NavigateTo("/physicochemicals");
-    }
-}
+    }}

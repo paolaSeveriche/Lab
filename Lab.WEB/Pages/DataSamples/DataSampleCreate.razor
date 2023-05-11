@@ -1,20 +1,22 @@
-﻿@page "/countries/create"
+﻿@page "/dataSamples/create"
 @using CurrieTechnologies.Razor.SweetAlert2;
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService sweetAlertService
 
-<h3>Crear País</h3><CountryForm @ref="countryForm" Country="country" OnValidSubmit="Create"
+<h3>Crear Dato Muestra</h3>
+
+<DataSampleForm @ref="dataSampleForm" DataSample="dataSample" OnValidSubmit="Create"
              ReturnAction="Return" />
 
 @code {
-    private Country country = new();
-    private CountryForm? countryForm;
+    private DataSample dataSample = new();
+    private DataSampleForm? dataSampleForm;
 
     private async Task Create()
     {
         // llama al repositorio y ejecuta el api
-        var httpResponse = await repository.Post("/api/countries", country);
+        var httpResponse = await repository.Post("/api/dataSamples", dataSample);
         if (httpResponse.Error)
         {
             var mensajeError = await httpResponse.GetErrorMessageAsync();
@@ -22,15 +24,15 @@
         }
         else
         {
-            countryForm!.FormPostedSuccessfully = true;
+            dataSampleForm!.FormPostedSuccessfully = true;
 
 
-            navigationManager.NavigateTo("/countries");
+            navigationManager.NavigateTo("/dataSamples");
         }
     } // se devuelve a la navegación
     private void Return()
     {
-        navigationManager.NavigateTo("/countries");
+        navigationManager.NavigateTo("/dataSamples");
     }
 }
 

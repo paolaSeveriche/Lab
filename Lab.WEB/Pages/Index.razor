@@ -1,18 +1,12 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization
+@using System.Net;
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using Lab.WEB.Repositories;
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService swal
 
-<PageTitle>Index</PageTitle>
-
-<AuthorizeView Roles="Admin">
-    
-    <Authorized>
-        <p>Estas autenticado @context.User.Identity?.Name</p>
-    </Authorized>
-    <NotAuthorized>
-        <p>No estas autorizado</p>
-    </NotAuthorized>
-</AuthorizeView>
-
+@inject IRepository repository
 
 <h1>Hello, C#!</h1>
 
@@ -21,5 +15,3 @@
 Luis Fernando Arango Gomez
 <br />
 Paola Severiche  Pestana
-
-<SurveyPrompt Title="" />

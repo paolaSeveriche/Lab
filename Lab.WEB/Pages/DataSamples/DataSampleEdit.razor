@@ -1,0 +1,67 @@
+﻿@page "/dataSamples/edit/{Id:int}"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
+
+<h3>Editar Dato</h3>
+
+@if (dataSample is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <DataSampleForm @ref="dataSampleForm" DataSample="dataSample" OnValidSubmit="Edit" ReturnAction="Return" />
+}
+
+@code {
+    private DataSample? dataSample;
+    private DataSampleForm? dataSampleForm;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var responseHTTP = await repository.Get<DataSample>($"api/dataSamples/{Id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("dataSamples");
+            }
+            else
+            {
+                var messageError = await responseHTTP.GetErrorMessageAsync();
+                await swal.FireAsync("Error", messageError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            dataSample = responseHTTP.Response;
+        }
+    }
+
+    private async Task Edit()
+    {
+        var responseHTTP = await repository.Put("api/dataSamples", dataSample);
+
+        if (responseHTTP.Error)
+        {
+            var mensajeError = await responseHTTP.GetErrorMessageAsync();
+            await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            dataSampleForm!.FormPostedSuccessfully = true;
+            navigationManager.NavigateTo("countries");
+        }
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("countries");
+    }
+}
+

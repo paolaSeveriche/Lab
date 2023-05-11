@@ -1,67 +1,96 @@
-﻿@page "/physicochemicals"
-@using System.Net
-@inject IRepository repository
+﻿@page "/dataSamples"
+@using Lab.WEB.Repositories;
+@using Lab.Shared.Entities;
+@using Microsoft.AspNetCore.Authorization;
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
+@*@attribute [Authorize(Roles ="Admin")] 
+<!--Para proteger la página-->
+
+<!--Protegida por el atributo nombre-->
+@attribute [Authorize(Roles = "Admin")]*@
 
 @inject IRepository repository
 
-<h3>Examen Fisicoquimico</h3>
+<h1>Dato De La Muestra en Campo</h1>
 
 
 <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
     <div>
-        <a class="btn btn-primary" href="/physicochemicals/create">Nuevo Examen</a>
+        <a class="btn btn-primary" href="/dataSamples/create">Nueva Muestra</a>
     </div>
     <div class="mx-2">
-        <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar Muestra..." @bind-value="Filter" />
+        <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar país..." @bind-value="Filter" />
     </div>
     <div>
         <button type="button" class="btn btn-outline-primary" @onclick="ApplyFilterAsync">Buscar</button>
         <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
     </div>
 </div>
-<GenericList MyList="Physicochemicals">
+
+<GenericList MyList="DataSamples">
 
     <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ResidualChlorine</th>
-                    <th>Irca</th>
-                    <th>Turbidity</th>
-                    <th>PH</th>
-                    <th>CollectorDate</th>
-                    <th>AdmissionDate</th>
+
+                    <th></th>
+                    <th style="width:220px">Fecha de Recolección</th>
+                    <th style="width:300px">Fecha de Ingreso</th>
+                    <th style="width:300px">Hora</th>
+                    <th style="width:300px">Nombre de Recolector</th>
+                    <th style="width:300px">Temperatura de ingreso</th>
+                    <th style="width:300px">Tipo Frasco</th>
+                    <th style="width:300px">Cantidad</th>
+                    <th style="width:300px">Color</th>
+                    <th style="width:300px">Olor</th>
+                    <th style="width:300px">Aspecto</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var physicochemical in Physicochemicals!)
+                @foreach (var dataSample in DataSamples!)
                 {
                     <tr>
+
                         <td>
-                            @physicochemical.ResidualChlorine
+                            @dataSample.CollectorDate
                         </td>
                         <td>
-                            @physicochemical.Irca
+                            @dataSample.AdmissionDate
                         </td>
                         <td>
-                            @physicochemical.Turbidity
+                            @dataSample.Hours
                         </td>
                         <td>
-                            @physicochemical.Ph
+                            @dataSample.NameR
                         </td>
                         <td>
-                            @physicochemical.CollectorDate
+                            @dataSample.temperature
                         </td>
                         <td>
-                            @physicochemical.AdmissionDate
+                            @dataSample.RecentType
                         </td>
                         <td>
-                            <a href="/physicochemicals/edit/@physicochemical.Id" class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(physicochemical))>Borrar</button>
+                            @dataSample.Amount
                         </td>
-                        +
+                        <td>
+                            @dataSample.Color
+                        </td>
+                        <td>
+                            @dataSample.Smell
+                        </td>
+                        <td>
+                            @dataSample.Aspect
+                        </td>
+                        <!--Aca se cambio el  orden del botón -->
+                        <td>
+                            @*<a href="/dataSamples/details/@dataSample.Id" class="btn btn-info">Detalles</a>*@
+                            <a href="/dataSamples/edit/@dataSample.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(dataSample))>Borrar</button>
+
+                        </td>
+              
                     </tr>
                 }
             </tbody>
@@ -77,7 +106,7 @@
 
 @code {
 
-    public List<Physicochemical>? Physicochemicals { get; set; }
+    public List<DataSample>? DataSamples { get; set; }
     // Codigo de paginación
     private int currentPage = 1;
     private int totalPages;
@@ -118,25 +147,25 @@
 
         if (string.IsNullOrEmpty(Filter))
         {
-            url1 = $"api/physicochemicals?page={page}";
-            url2 = $"api/physicochemicals/totalPages";
+            url1 = $"api/dataSamples?page={page}";
+            url2 = $"api/dataSamples/totalPages";
         }
         else
         {
-            url1 = $"api/physicochemicals?page={page}&filter={Filter}";
-            url2 = $"api/physicochemicals/totalPages?filter={Filter}";
+            url1 = $"api/dataSamples?page={page}&filter={Filter}";
+            url2 = $"api/dataSamples/totalPages?filter={Filter}";
         }
 
 
 
-        var responseHppt = await repository.Get<List<Physicochemical>>(url1);
+        var responseHppt = await repository.Get<List<DataSample>>(url1);
         var responseHppt2 = await repository.Get<int>(url2);
-        Physicochemicals = responseHppt.Response!;
+        DataSamples = responseHppt.Response!;
         totalPages = responseHppt2.Response!;
     }
 
 
-    private async Task Delete(Physicochemical physicochemical)
+    private async Task Delete(DataSample dataSample)
     {
         var result = await swal.FireAsync(new SweetAlertOptions
             {
@@ -153,7 +182,7 @@
             return;
         }
 
-        var responseHTTP = await repository.Delete($"api/physicochemicals/{physicochemical.Id}");
+        var responseHTTP = await repository.Delete($"api/dataSamples/{dataSample.Id}");
 
         if (responseHTTP.Error)
         {

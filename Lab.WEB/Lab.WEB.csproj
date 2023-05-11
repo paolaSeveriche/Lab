@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Index - Copy.razor" />
     <Content Remove="Pages\Index.razor" />
   </ItemGroup>
 
@@ -30,11 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Index - Copy.razor" />
     <None Include="Pages\Index.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\DataSamples\" />
   </ItemGroup>
 
 </Project>

@@ -55,7 +55,7 @@ namespace Lab.Shared.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Smell { get; set; } = null!;
 
-        [Display(Name = "Olor")]
+        [Display(Name = "Aspecto")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Aspect { get; set; } = null!;

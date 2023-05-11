@@ -15,6 +15,8 @@ namespace Lab.Shared.Entities
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Nombre { get; set; } = null!;
+        
+        //Relaciones
         public City? City { get; set; }
 
         [Display(Name = "Ciudad")]

@@ -1,5 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
+        <img src="logo.png"width="50px" />
         <a class="navbar-brand" href="">Water SYNCS</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
@@ -23,16 +24,21 @@
         </div>*@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="physicochemicals">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> D.Fisicoquimicas
+                <span class="oi oi-list-rich" aria-hidden="true"></span> E.Fisicoquimicas
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="microbiologicals">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Microbiologicas
+                <span class="oi oi-list-rich" aria-hidden="true"></span> E.Microbiologicas
             </NavLink>
         </div>
 
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dataSamples">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Datos Muestra
+            </NavLink>
+        </div>
         <!-- pedir autorización PARA ESTO ES LA ETIQUETA AUTHORIZEVIEW A ESE MENÚ SOLO ACCEDE ADMIN-->
         <!--Sí quiero poner restricciones en el menú agrego esta etiqueta-->
         @*<AuthorizeView Roles="Admin">

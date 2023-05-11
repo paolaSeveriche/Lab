@@ -7,14 +7,12 @@
 
 @inject IRepository repository
 
-<h3>Muestra</h3>
-<Pagination CurrentPage="currentPage"
-            TotalPages="totalPages"
-            SelectedPage="SelectedPage" />
+<h3>Examen Microbiologico</h3>
+
 
 <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
     <div>
-        <a class="btn btn-primary" href="/microbiologicals/create">Nueva Muestra</a>
+        <a class="btn btn-primary" href="/microbiologicals/create">Nuevo Examen</a>
     </div>
     <div class="mx-2">
         <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar Muestra..." @bind-value="Filter" />
@@ -58,6 +56,10 @@
                 }
             </tbody>
         </table>
+
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPage" />
 
     </Body>
 
