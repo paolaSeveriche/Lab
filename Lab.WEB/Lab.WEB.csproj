@@ -33,4 +33,8 @@
     <None Include="Pages\Index.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\DataSamples\" />
+  </ItemGroup>
+
 </Project>

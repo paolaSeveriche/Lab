@@ -1,4 +1,4 @@
-﻿@page "/countries/create"
+﻿@page "/microbiologicals/create"
 @using CurrieTechnologies.Razor.SweetAlert2;
 @inject IRepository repository
 @inject NavigationManager navigationManager
@@ -6,19 +6,17 @@
 
 <h3>Crear País</h3>
 
-
-Microbiological
-<CountryForm @ref="countryForm" Country="country" OnValidSubmit="Create"
+<MicrobiologicalForm @ref="microbiologicalForm" Microbiological="microbiological" OnValidSubmit="Create"
              ReturnAction="Return" />
 
 @code {
-    private Country country = new();
-    private CountryForm? countryForm;
+    private Microbiological microbiological = new();
+    private MicrobiologicalForm? microbiologicalForm;
 
     private async Task Create()
     {
         // llama al repositorio y ejecuta el api
-        var httpResponse = await repository.Post("/api/countries", country);
+        var httpResponse = await repository.Post("/api/microbiologicals", microbiological);
         if (httpResponse.Error)
         {
             var mensajeError = await httpResponse.GetErrorMessageAsync();
@@ -26,15 +24,14 @@ Microbiological
         }
         else
         {
-            countryForm!.FormPostedSuccessfully = true;
+            microbiologicalForm!.FormPostedSuccessfully = true;
 
 
-            navigationManager.NavigateTo("/countries");
+            navigationManager.NavigateTo("/microbiologicals");
         }
     } // se devuelve a la navegación
     private void Return()
     {
-        navigationManager.NavigateTo("/countries");
+        navigationManager.NavigateTo("/microbiologicals");
     }
 }
-

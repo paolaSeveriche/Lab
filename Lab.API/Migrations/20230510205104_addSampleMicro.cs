@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lab.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Controllers1 : Migration
+    public partial class addSampleMicro : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,6 +36,21 @@ namespace Lab.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Microbiological",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ColiformCount = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CountHeterotrophs = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    EColiCount = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Microbiological", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -297,6 +312,12 @@ namespace Lab.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Microbiological_Id",
+                table: "Microbiological",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Physicochemical_Id",
                 table: "Physicochemical",
                 column: "Id",
@@ -326,6 +347,9 @@ namespace Lab.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Microbiological");
 
             migrationBuilder.DropTable(
                 name: "Physicochemical");

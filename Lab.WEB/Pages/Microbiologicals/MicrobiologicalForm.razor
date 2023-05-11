@@ -1,4 +1,5 @@
-﻿@inject SweetAlertService swal
+﻿
+@inject SweetAlertService swal
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
@@ -6,63 +7,28 @@
     <DataAnnotationsValidator />
 
     <div class="mb-3">
-        <label>Residuo de Clurudo:</label>
+        <label>Recuento Coliformes:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Physicochemical.ResidualChlorine" />
-            <ValidationMessage For="@(() => Physicochemical.ResidualChlorine)" />
+            <InputText class="form-control" @bind-Value="@Microbiological.ColiformCount" />
+            <ValidationMessage For="@(() => Microbiological.ColiformCount)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Irca:</label>
+        <label>Recuento Heterotrofo:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Physicochemical.Irca" />
-            <ValidationMessage For="@(() => Physicochemical.Irca)" />
+            <InputText class="form-control" @bind-Value="@Microbiological.CountHeterotrophs" />
+            <ValidationMessage For="@(() => Microbiological.CountHeterotrophs)" />
         </div>
     </div>
 
     <div class="mb-3">
         <label>Turbidez:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Physicochemical.Turbidity" />
-            <ValidationMessage For="@(() => Physicochemical.Turbidity)" />
+            <InputText class="form-control" @bind-Value="@Microbiological.EColiCount" />
+            <ValidationMessage For="@(() => Microbiological.EColiCount)" />
         </div>
     </div>
-
-    <div class="mb-3">
-        <label>PH:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@Physicochemical.Ph" />
-            <ValidationMessage For="@(() => Physicochemical.Ph)" />
-        </div>
-    </div>
-
-   
-
-   
-    @*<div class="mb-3">
-        <label>Fecha Recolección:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@Physicochemical.CollectorDate" />
-            <ValidationMessage For="@(() => Physicochemical.CollectorDate)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Fecha de Ingreso de la Muestra al Laboratorio:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@Physicochemical.AdmissionDate" />
-            <ValidationMessage For="@(() => Physicochemical.AdmissionDate)" />
-        </div>
-    </div>*@
-    @*<div class="mb-3">
-        <label>Residuo de Clorudo:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@Physicochemical. " />
-            <ValidationMessage For="@(() => Physicochemical.ResidualChlorine)" />
-        </div>
-    </div>*@
-
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
     <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
 </EditForm>
@@ -73,13 +39,13 @@ private EditContext editContext = null!;
 
     protected override void OnInitialized()
     {
-        editContext = new(Physicochemical);
+        editContext = new(Microbiological);
     }
 
 
     [EditorRequired]
     [Parameter]
-    public Physicochemical Physicochemical { get; set; } = null!;
+    public Microbiological Microbiological { get; set; } = null!;
 
     // El boton hace el submit
     [EditorRequired]

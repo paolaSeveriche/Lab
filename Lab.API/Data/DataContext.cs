@@ -17,8 +17,13 @@ namespace Lab.API.Data
 
         public DbSet<State> States { get; set; }
 
-        //uestras
+        //Muestras
         public DbSet<Physicochemical> Physicochemical { get; set; }
+        public DbSet<Microbiological> Microbiological { get; set; }
+        public DbSet<DataSample> DataSample { get; set; }
+
+        //Resultado
+        public DbSet<Result> Results { get; set; }
 
         //Migración
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,7 +36,12 @@ namespace Lab.API.Data
 
             //Muestras
             modelBuilder.Entity<Physicochemical>().HasIndex(c=> c.Id).IsUnique();
+            modelBuilder.Entity<Microbiological>().HasIndex(c => c.Id).IsUnique();
+            modelBuilder.Entity<DataSample>().HasIndex(c=> c.Id).IsUnique();   
 
+
+            //Resultado
+            modelBuilder.Entity<Result>().HasIndex(c=> c.Id).IsUnique();   
         }
     }
 }

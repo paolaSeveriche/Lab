@@ -1,5 +1,6 @@
-﻿@page "/physicochemicals"
+﻿@page "/microbiologicals"
 @using System.Net;
+@using Lab.Shared.Entities;
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
@@ -13,7 +14,7 @@
 
 <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
     <div>
-        <a class="btn btn-primary" href="/physicochemical/create">Nueva Muestra</a>
+        <a class="btn btn-primary" href="/microbiologicals/create">Nueva Muestra</a>
     </div>
     <div class="mx-2">
         <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar Muestra..." @bind-value="Filter" />
@@ -23,45 +24,35 @@
         <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
     </div>
 </div>
-<GenericList MyList="Physicochemicals">
+
+<GenericList MyList="Microbiologicals">
 
     <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ResidualChlorine</th>
-                    <th>Irca</th>
-                    <th>Turbidity</th>
-                    <th>PH</th>
-                    @*<th>CollectorDate</th>
-                    <th>AdmissionDate</th>*@
+                    <th>ColiformCount</th>
+                    <th>CountHeterotrophs</th>
+                    <th>EColiCount</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var physicochemical in Physicochemicals!)
+                @foreach (var microbiological in Microbiologicals!)
                 {
                     <tr>
                         <td>
-                            @physicochemical.ResidualChlorine
+                            @microbiological.ColiformCount
                         </td>
                         <td>
-                            @physicochemical.Irca
+                            @microbiological.CountHeterotrophs
                         </td>
                         <td>
-                            @physicochemical.Turbidity
+                            @microbiological.EColiCount
                         </td>
+                       
                         <td>
-                            @physicochemical.Ph
-                        </td>
-                       @* <td>
-                            @physicochemical.CollectorDate
-                        </td>
-                        <td>
-                            @physicochemical.AdmissionDate
-                        </td>*@
-                        <td>
-                            <a href="/physicochemicals/edit/@physicochemical.Id" class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(physicochemical))>Borrar</button>
+                            <a href="/microbiologicals/edit/@microbiological.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(microbiological))>Borrar</button>
                         </td>
                     </tr>
                 }
@@ -74,7 +65,7 @@
 
 @code {
 
-    public List<Physicochemical>? Physicochemicals { get; set; }
+    public List<Microbiological>? Microbiologicals { get; set; }
     // Codigo de paginación
     private int currentPage = 1;
     private int totalPages;
@@ -115,25 +106,25 @@
 
         if (string.IsNullOrEmpty(Filter))
         {
-            url1 = $"api/physicochemicals?page={page}";
-            url2 = $"api/physicochemicals/totalPages";
+            url1 = $"api/microbiologicals?page={page}";
+            url2 = $"api/microbiologicals/totalPages";
         }
         else
         {
-            url1 = $"api/physicochemicals?page={page}&filter={Filter}";
-            url2 = $"api/physicochemicals/totalPages?filter={Filter}";
+            url1 = $"api/microbiologicals?page={page}&filter={Filter}";
+            url2 = $"api/microbiologicals/totalPages?filter={Filter}";
         }
 
 
 
-        var responseHppt = await repository.Get<List<Physicochemical>>(url1);
+        var responseHppt = await repository.Get<List<Microbiological>>(url1);
         var responseHppt2 = await repository.Get<int>(url2);
-        Physicochemicals = responseHppt.Response!;
+        Microbiologicals = responseHppt.Response!;
         totalPages = responseHppt2.Response!;
     }
 
 
-    private async Task Delete(Physicochemical physicochemical)
+    private async Task Delete(Microbiological microbiological)
     {
         var result = await swal.FireAsync(new SweetAlertOptions
             {
@@ -150,7 +141,7 @@
             return;
         }
 
-        var responseHTTP = await repository.Delete($"api/physicochemicals/{physicochemical.Id}");
+        var responseHTTP = await repository.Delete($"api/microbiologicals/{microbiological.Id}");
 
         if (responseHTTP.Error)
         {

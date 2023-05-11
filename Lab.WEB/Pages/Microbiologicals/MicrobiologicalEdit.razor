@@ -1,0 +1,67 @@
+﻿@page "/microbiologicals/edit/{Id:int}"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
+
+<h3>Editar País</h3>
+
+@if (microbiological is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <MicrobiologicalForm @ref="microbiologicalForm" Microbiological="microbiological"
+        OnValidSubmit="Edit" ReturnAction="Return" />
+}
+
+@code {
+    private Microbiological? microbiological;
+    private MicrobiologicalForm? microbiologicalForm;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var responseHTTP = await repository.Get<Microbiological>($"api/microbiologicals/{Id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("microbiologicals");
+            }
+            else
+            {
+                var messageError = await responseHTTP.GetErrorMessageAsync();
+                await swal.FireAsync("Error", messageError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            microbiological = responseHTTP.Response;
+        }
+    }
+
+    private async Task Edit()
+    {
+        var responseHTTP = await repository.Put("api/microbiologicals", microbiological);
+
+        if (responseHTTP.Error)
+        {
+            var mensajeError = await responseHTTP.GetErrorMessageAsync();
+            await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            microbiologicalForm!.FormPostedSuccessfully = true;
+            navigationManager.NavigateTo("microbiologicals");
+        }
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("microbiologicalsphysicochemicals");
+    }
+}
