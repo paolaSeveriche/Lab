@@ -4,11 +4,11 @@
 @using Microsoft.AspNetCore.Authorization;
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
-@attribute [Authorize(Roles ="Admin")] 
+@*@attribute [Authorize(Roles ="Admin")] 
 <!--Para proteger la página-->
 
 <!--Protegida por el atributo nombre-->
-@attribute [Authorize(Roles = "Admin")]
+@attribute [Authorize(Roles = "Admin")]*@
 
 @inject IRepository repository
 
@@ -128,6 +128,7 @@
             url2 = $"api/countries/totalPages?filter={Filter}";
         }
 
+        // Captura de errores
 
 
         var responseHppt = await repository.Get<List<Country>>(url1);

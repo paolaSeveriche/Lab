@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230510233635_addResult")]
-    partial class addResult
+    [Migration("20230512163351_u1")]
+    partial class u1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

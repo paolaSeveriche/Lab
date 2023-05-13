@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lab.API.Migrations
 {
     /// <inheritdoc />
-    public partial class addSampleMicro : Migration
+    public partial class u1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,6 +36,28 @@ namespace Lab.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DataSample",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CollectorDate = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    AdmissionDate = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Hours = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    NameR = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    temperature = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    RecentType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Amount = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Smell = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DataSample", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -164,6 +186,26 @@ namespace Lab.API.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Results",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Results", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Results_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
@@ -312,6 +354,12 @@ namespace Lab.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_DataSample_Id",
+                table: "DataSample",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Microbiological_Id",
                 table: "Microbiological",
                 column: "Id",
@@ -320,6 +368,17 @@ namespace Lab.API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Physicochemical_Id",
                 table: "Physicochemical",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Results_CityId",
+                table: "Results",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Results_Id",
+                table: "Results",
                 column: "Id",
                 unique: true);
 
@@ -349,10 +408,16 @@ namespace Lab.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "DataSample");
+
+            migrationBuilder.DropTable(
                 name: "Microbiological");
 
             migrationBuilder.DropTable(
                 name: "Physicochemical");
+
+            migrationBuilder.DropTable(
+                name: "Results");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -13,6 +13,10 @@ builder.Services.AddScoped<IRepository, Repository>();
 // Se debe inyectar el servicio de Alert Para que funcione luego ir a INDEX HTML en www.root
 builder.Services.AddSweetAlert2();
 builder.Services.AddAuthorizationCore();
+
+//LOGIN
+
+
 builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
 
 

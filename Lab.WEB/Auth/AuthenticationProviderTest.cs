@@ -15,10 +15,10 @@ namespace Lab.WEB.Auth
             //Claim-> Especie de rol ó firma
             var oapUser = new ClaimsIdentity(new List<Claim>
         {
-            new Claim("FirstName", "Luis"),
-            new Claim("LastName", "O"),
-            new Claim(ClaimTypes.Name, "oap@yopmail.com"),
-             new Claim(ClaimTypes.Role, "Admin")
+            //new Claim("FirstName", "Luis"),
+            //new Claim("LastName", "O"),
+            //new Claim(ClaimTypes.Name, "oapssss@yopmail.com"),
+            // new Claim(ClaimTypes.Role, "Admin")
             },
 
             authenticationType: "test");
